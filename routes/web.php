@@ -68,12 +68,25 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/trash', 'Admin\FacilityController@trash')->name('admin.facility.trash');
       Route::get('/restore', 'Admin\FacilityController@restore')->name('admin.facility.restore');
     
-      Route::get('/{id}/restore', 'Admin\FacilityController@restoreCustomer')->name('admin.facility.restore.id');
+      Route::get('/{id}/restore', 'Admin\FacilityController@restoreFacility')->name('admin.facility.restore.id');
       Route::get('/{id}/delete', 'Admin\FacilityController@delete')->name('admin.facility.delete');
       Route::get('/{id}/delete/permanent', 'Admin\FacilityController@deletePermanent')->name('admin.facility.delete.permanent');
     
       Route::post('/store', 'Admin\FacilityController@store')->name('admin.facility.store');
       Route::put('/{id}/update', 'Admin\FacilityController@update')->name('admin.facility.update');
+  });
+
+  Route::group(['prefix' => 'types'], function () {
+      Route::get('/', 'Admin\TypeController@index')->name('admin.type');
+      Route::get('/trash', 'Admin\TypeController@trash')->name('admin.type.trash');
+      Route::get('/restore', 'Admin\TypeController@restore')->name('admin.type.restore');
+    
+      Route::get('/{id}/restore', 'Admin\TypeController@restoreType')->name('admin.type.restore.id');
+      Route::get('/{id}/delete', 'Admin\TypeController@delete')->name('admin.type.delete');
+      Route::get('/{id}/delete/permanent', 'Admin\TypeController@deletePermanent')->name('admin.type.delete.permanent');
+    
+      Route::post('/store', 'Admin\TypeController@store')->name('admin.type.store');
+      Route::put('/{id}/update', 'Admin\TypeController@update')->name('admin.type.update');
   });
 
   Route::group(['prefix' => 'profile-web'], function () {
