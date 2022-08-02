@@ -50,6 +50,32 @@ Route::group(['prefix' => 'admin'], function () {
       Route::put('/{id}/update', 'Admin\UserController@update')->name('admin.user.update');
   });
 
+  Route::group(['prefix' => 'customers'], function () {
+      Route::get('/', 'Admin\CustomerController@index')->name('admin.customer');
+      Route::get('/trash', 'Admin\CustomerController@trash')->name('admin.customer.trash');
+      Route::get('/restore', 'Admin\CustomerController@restore')->name('admin.customer.restore');
+    
+      Route::get('/{id}/restore', 'Admin\CustomerController@restoreCustomer')->name('admin.customer.restore.id');
+      Route::get('/{id}/delete', 'Admin\CustomerController@delete')->name('admin.customer.delete');
+      Route::get('/{id}/delete/permanent', 'Admin\CustomerController@deletePermanent')->name('admin.customer.delete.permanent');
+    
+      Route::post('/store', 'Admin\CustomerController@store')->name('admin.customer.store');
+      Route::put('/{id}/update', 'Admin\CustomerController@update')->name('admin.customer.update');
+  });
+
+  Route::group(['prefix' => 'facilities'], function () {
+      Route::get('/', 'Admin\FacilityController@index')->name('admin.facility');
+      Route::get('/trash', 'Admin\FacilityController@trash')->name('admin.facility.trash');
+      Route::get('/restore', 'Admin\FacilityController@restore')->name('admin.facility.restore');
+    
+      Route::get('/{id}/restore', 'Admin\FacilityController@restoreCustomer')->name('admin.facility.restore.id');
+      Route::get('/{id}/delete', 'Admin\FacilityController@delete')->name('admin.facility.delete');
+      Route::get('/{id}/delete/permanent', 'Admin\FacilityController@deletePermanent')->name('admin.facility.delete.permanent');
+    
+      Route::post('/store', 'Admin\FacilityController@store')->name('admin.facility.store');
+      Route::put('/{id}/update', 'Admin\FacilityController@update')->name('admin.facility.update');
+  });
+
   Route::group(['prefix' => 'profile-web'], function () {
     Route::get('/', 'Admin\ProfileController@index')->name('admin.profile');
     Route::get('/edit', 'Admin\ProfileController@index')->name('admin.profile.edit');

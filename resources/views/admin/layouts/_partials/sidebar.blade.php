@@ -48,12 +48,6 @@
                   <a href="{{ url('admin/rooms') }}" class="nav-link"><i class="fa fa-rss"></i> Semua Ruangan</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/rooms/publish') }}" class="nav-link"><i class="fa fa-check"></i> Ruangan Publish</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ url('admin/rooms/pending') }}" class="nav-link"><i class="fa fa-clock"></i> Ruangan Pending</a>
-                </li>
-                <li class="nav-item">
                   <a href="{{ url('admin/rooms/trash') }}" class="nav-link"><i class="fa fa-trash"></i> Ruangan Delete</a>
                 </li>
               </ul>

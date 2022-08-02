@@ -10,70 +10,64 @@ use Str;
 use Hash;
 use Alert;
 
-use App\User;
-use App\Level;
+use App\Customer;
 
-class UserController extends Controller
+class CustomerController extends Controller
 {
-  public function __construct() {
+    public function __construct() {
     $this->middleware('auth');
   }
 
   public function index() {
-    $data = User::with('level')->get();
-    $level = Level::all();
-    $title = "Semua Pegawai";
-    $description = "Data semua user";
+    $data = Customer::all();
+    $title = "Semua Customer";
+    $description = "Data semua customer";
 
-    return view('admin.user.user',[
+    return view('admin.customer.customer',[
       'data' => $data,
       'title' => $title,
       'description' => $description,
-      'level' => $level,
     ]);
   }
 
   public function trash() {
-    $data = User::onlyTrashed()->get();
-    $level = Level::all();
-    $title = "Pegawai Terhapus";
-    $description = "Data semua user yang terhapus";
+    $data = Customer::onlyTrashed()->get();
+    $title = "Customer Terhapus";
+    $description = "Data semua customer yang terhapus";
 
-    return view('admin.user.user',[
+    return view('admin.customer.customer',[
       'data' => $data,
       'title' => $title,
       'description' => $description,
-      'level' => $level,
     ]);
   }
 
   public function store(Request $req) {
     $this->validate($req,[
       'name' => 'required|min:4|max:255',
-      'email' => 'required|email|max:255|unique:users',
+      'phone' => 'required|min:11|numeric',
+      'email' => 'required|email|max:255|unique:customers',
       'password' => 'required|string|min:8|confirmed',
-      'level' => 'required',
     ]);
 
-    $data = new User();
-    $data->level_id = $req->level;
+    $data = new Customer();
     $data->name = $req->name;
+    $data->phone = $req->phone;
     $data->email = $req->email;
     $data->email_verified_at = date('Y-m-d H:i:s');
     $data->password = Hash::make($req->password);
-    $data->status = 'active';
     $data->save();
-
+    
     alert()->success('Data berhasil di tambah');
     return redirect()->back();
 
-  }
+}
 
-  public function update(Request $req, $id) {
+public function update(Request $req, $id) {
     $this->validate($req,[
-      'name' => 'required|min:4|max:255',
-      'email' => 'required|email|max:255',
-      'level' => 'required',
+        'name' => 'required|min:4|max:255',
+        'phone' => 'required|min:11|max:13|numeric',
+        'email' => 'required|email|max:255',
     ]);
 
     if ($req->password != null) {
@@ -82,9 +76,9 @@ class UserController extends Controller
       ]);
     }
 
-    $data = User::find($id);
-    $data->level_id = $req->level;
+    $data = Customer::find($id);
     $data->name = $req->name;
+    $data->phone = $req->phone;
     $data->email = $req->email;
     if ($req->password !== null) {
       $data->password = Hash::make($req->password);
@@ -97,7 +91,7 @@ class UserController extends Controller
   }
 
   public function delete($id) {
-    $data = User::find($id);
+    $data = Customer::find($id);
     $data->delete();
 
     alert()->success('Data berhasil di hapus');
@@ -105,7 +99,7 @@ class UserController extends Controller
   }
 
   public function deletePermanent($id) {
-    $data = User::onlyTrashed()->where('id',$id);
+    $data = Customer::onlyTrashed()->where('id',$id);
     $data->forceDelete();
 
     alert()->success('Data berhasil di hapus permanen');
@@ -113,7 +107,7 @@ class UserController extends Controller
   }
 
   public function restore() {
-    $data = User::onlyTrashed();
+    $data = Customer::onlyTrashed();
     $data->restore();
 
     alert()->success('Semua data berhasil di restore');
@@ -121,8 +115,8 @@ class UserController extends Controller
 
   }
 
-  public function restoreUser($id) {
-    $data = User::where("id",$id)->onlyTrashed();
+  public function restoreCustomer($id) {
+    $data = Customer::where("id",$id)->onlyTrashed();
     $data->restore();
 
     alert()->success('Data berhasil di restore');
@@ -130,18 +124,4 @@ class UserController extends Controller
 
   }
 
-  public function active($id) {
-    $param = request()->segment('4');
-    if ($param == 'active' || $param == 'nonactive') {
-      $data = User::find($id);
-      $data->status = $param;
-      $data->save();
-
-      alert()->success($param == 'active' ? "User berhasil diaktifkan":"User berhasil dinonaktifkan");
-    } else {
-      alert()->error('Maaf, validasi tidak valid.');
-    }
-
-    return redirect()->back();
-  }
 }

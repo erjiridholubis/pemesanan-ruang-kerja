@@ -10,8 +10,7 @@ class Customer extends Model
 {
     use SoftDeletes;
     
-    protected $dates = ['deleted_at'];
-
+    
     protected $fillable = [
         'name', 'phone', 'email', 'password',
     ];
@@ -19,10 +18,12 @@ class Customer extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    protected $dates = ['deleted_at'];
 
     public function order() {
         return $this->hasMany('App\Order', 'customer_id');
