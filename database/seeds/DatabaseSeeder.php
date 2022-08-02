@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(LevelSeed::class);
-        $this->call(StatusSeed::class);
         $this->call(WebProfileSeed::class);
         $this->call(UserSeed::class);
     }
