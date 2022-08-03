@@ -16,10 +16,10 @@ class Payment extends Model
     ];
     
     public function order() {
-        return $this->HasMany('App\Order', 'order_id');
+        return $this->belongsTo('App\Order', 'order_id', 'id');
     }
 
     public function user() {
-        return $this->HasMany('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

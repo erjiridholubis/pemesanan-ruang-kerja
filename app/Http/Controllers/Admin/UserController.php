@@ -37,7 +37,7 @@ class UserController extends Controller
     $data = User::onlyTrashed()->get();
     $level = Level::all();
     $title = "Pegawai Terhapus";
-    $description = "Data semua user yang terhapus";
+    $description = "Data semua pegawai yang terhapus";
 
     return view('admin.user.user',[
       'data' => $data,

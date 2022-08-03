@@ -9,23 +9,23 @@ class Order extends Model
 {
 
     use SoftDeletes;
-    
-    protected $dates = ['deleted_at'];
-
+        
     protected $fillable = [
         'customer_id', 'room_id', 'start_date', 'end_date', 'booking_date'
     ];
 
+    protected $dates = ['deleted_at'];
+    
     public function customer() {
-        return $this->hasMany('App\Customer', 'customer_id');
+        return $this->belongsTo('App\Customer', 'customer_id');
     }
 
     public function room() {
-        return $this->hasMany('App\Room', 'room_id');
+        return $this->belongsTo('App\Room', 'room_id');
     }
 
     public function payment() {
-        return $this->belongsTo('App\Payment', 'order_id');
+        return $this->hasMany('App\Payment', 'order_id', 'id');
     }
 }
  

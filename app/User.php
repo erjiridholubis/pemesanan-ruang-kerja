@@ -45,10 +45,7 @@ class User extends Authenticatable
       return $this->belongsTo('App\Level','level_id');
     }
 
-    public function post() {
-      return $this->hasMany('App\Post','user_id','id');
-    }
-    public function page() {
-      return $this->hasMany('App\Page','user_id','id');
+    public function payment() {
+      return $this->hasMany('App\Payment','user_id', 'id');
     }
 }

@@ -26,6 +26,6 @@ class Room extends Model
     }
 
     public function order() {
-        return $this->belongsTo('App\Order', 'room_id');
+        return $this->hasMany('App\Order', 'room_id', 'id');
     }
 }

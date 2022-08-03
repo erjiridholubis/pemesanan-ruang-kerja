@@ -26,3 +26,6 @@ Route::get('customer/{id}', 'Api\CustomerController@show')->name('api.customer.s
 
 Route::get('facility', 'Api\FacilityController@index')->name('api.facility.all');
 Route::get('facility/{id}', 'Api\FacilityController@show')->name('api.facility.show');
+
+Route::get('order', 'Api\OrderController@index')->name('api.order.all');
+Route::get('order/{id}', 'Api\OrderController@show')->name('api.order.show');

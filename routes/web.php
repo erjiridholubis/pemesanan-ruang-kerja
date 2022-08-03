@@ -89,6 +89,19 @@ Route::group(['prefix' => 'admin'], function () {
       Route::put('/{id}/update', 'Admin\TypeController@update')->name('admin.type.update');
   });
 
+  Route::group(['prefix' => 'orders'], function () {
+      Route::get('/', 'Admin\OrderController@index')->name('admin.order');
+      Route::get('/trash', 'Admin\OrderController@trash')->name('admin.order.trash');
+      Route::get('/restore', 'Admin\OrderController@restore')->name('admin.order.restore');
+    
+      Route::get('/{id}/restore', 'Admin\OrderController@restoreOrder')->name('admin.order.restore.id');
+      Route::get('/{id}/delete', 'Admin\OrderController@delete')->name('admin.order.delete');
+      Route::get('/{id}/delete/permanent', 'Admin\OrderController@deletePermanent')->name('admin.order.delete.permanent');
+    
+      Route::post('/store', 'Admin\OrderController@store')->name('admin.order.store');
+      Route::put('/{id}/update', 'Admin\OrderController@update')->name('admin.order.update');
+  });
+
   Route::group(['prefix' => 'profile-web'], function () {
     Route::get('/', 'Admin\ProfileController@index')->name('admin.profile');
     Route::get('/edit', 'Admin\ProfileController@index')->name('admin.profile.edit');

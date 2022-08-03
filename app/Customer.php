@@ -22,11 +22,11 @@ class Customer extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     protected $dates = ['deleted_at'];
 
     public function order() {
-        return $this->hasMany('App\Order', 'customer_id');
+        return $this->hasMany('App\Order', 'customer_id', 'id');
     }
     
 }
