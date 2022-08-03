@@ -123,6 +123,8 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/{id}/restore', 'Admin\PaymentController@restorePayment')->name('admin.payment.restore.id');
       Route::get('/{id}/delete', 'Admin\PaymentController@delete')->name('admin.payment.delete');
       Route::get('/{id}/delete/permanent', 'Admin\PaymentController@deletePermanent')->name('admin.payment.delete.permanent');
+      Route::get('/{id}/approve', 'Admin\PaymentController@approve')->name('admin.payment.approve');
+      Route::get('/{id}/deceline', 'Admin\PaymentController@approve')->name('admin.payment.deceline');
     
       Route::post('/store', 'Admin\PaymentController@store')->name('admin.payment.store');
       Route::put('/{id}/update', 'Admin\PaymentController@update')->name('admin.payment.update');
