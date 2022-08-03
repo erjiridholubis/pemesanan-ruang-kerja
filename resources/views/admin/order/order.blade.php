@@ -209,7 +209,7 @@
             $('#form-order').attr('action',url)
             $('#method').html('@method('PUT')')
             $('#start_date').val(obj.start_date)
-            $('#end_date').val(obj.emailend_date)
+            $('#end_date').val(obj.end_date)
             $('#option_cs'+obj.customer_id).attr('selected',true)
             $('#option_rm'+obj.room_id).attr('selected',true)
             $('#info-update').html('')
