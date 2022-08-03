@@ -23,7 +23,7 @@ class UserController extends Controller
     $data = User::with('level')->get();
     $level = Level::all();
     $title = "Semua Pegawai";
-    $description = "Data semua user";
+    $description = "Data semua pegawai";
 
     return view('admin.user.user',[
       'data' => $data,

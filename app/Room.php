@@ -18,11 +18,11 @@ class Room extends Model
     ];
     
     public function type() {
-        return $this->hasMany('App\Type', 'type_id');
+        return $this->belongsTo('App\Type', 'type_id', 'id');
     }
 
     public function facility() {
-        return $this->belongsToMany('App\Facility', 'facility_room', 'room_id', 'facility_id');
+        return $this->belongsToMany('App\Facility');
     }
 
     public function order() {

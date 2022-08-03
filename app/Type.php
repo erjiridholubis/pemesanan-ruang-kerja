@@ -18,6 +18,6 @@ class Type extends Model
     ];
 
     public function room() {
-        return $this->belongsTo('App\Room', 'type_id');
+        return $this->hasMany('App\Room', 'type_id');
     }
 }

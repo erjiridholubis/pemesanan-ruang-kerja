@@ -17,6 +17,6 @@ class Facility extends Model
     protected $dates = ['deleted_at'];
     
     public function room() {
-        return $this->belongsToMany('App\Room', 'facility_room', 'facility_id', 'room_id');
+        return $this->belongsToMany('App\Room');
     }
 }

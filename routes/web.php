@@ -102,6 +102,32 @@ Route::group(['prefix' => 'admin'], function () {
       Route::put('/{id}/update', 'Admin\OrderController@update')->name('admin.order.update');
   });
 
+  Route::group(['prefix' => 'rooms'], function () {
+      Route::get('/', 'Admin\RoomController@index')->name('admin.room');
+      Route::get('/trash', 'Admin\RoomController@trash')->name('admin.room.trash');
+      Route::get('/restore', 'Admin\RoomController@restore')->name('admin.room.restore');
+    
+      Route::get('/{id}/restore', 'Admin\RoomController@restoreRoom')->name('admin.room.restore.id');
+      Route::get('/{id}/delete', 'Admin\RoomController@delete')->name('admin.room.delete');
+      Route::get('/{id}/delete/permanent', 'Admin\RoomController@deletePermanent')->name('admin.room.delete.permanent');
+    
+      Route::post('/store', 'Admin\RoomController@store')->name('admin.room.store');
+      Route::put('/{id}/update', 'Admin\RoomController@update')->name('admin.room.update');
+  });
+
+  Route::group(['prefix' => 'payments'], function () {
+      Route::get('/', 'Admin\PaymentController@index')->name('admin.payment');
+      Route::get('/trash', 'Admin\PaymentController@trash')->name('admin.payment.trash');
+      Route::get('/restore', 'Admin\PaymentController@restore')->name('admin.payment.restore');
+    
+      Route::get('/{id}/restore', 'Admin\PaymentController@restorePayment')->name('admin.payment.restore.id');
+      Route::get('/{id}/delete', 'Admin\PaymentController@delete')->name('admin.payment.delete');
+      Route::get('/{id}/delete/permanent', 'Admin\PaymentController@deletePermanent')->name('admin.payment.delete.permanent');
+    
+      Route::post('/store', 'Admin\PaymentController@store')->name('admin.payment.store');
+      Route::put('/{id}/update', 'Admin\PaymentController@update')->name('admin.payment.update');
+  });
+
   Route::group(['prefix' => 'profile-web'], function () {
     Route::get('/', 'Admin\ProfileController@index')->name('admin.profile');
     Route::get('/edit', 'Admin\ProfileController@index')->name('admin.profile.edit');

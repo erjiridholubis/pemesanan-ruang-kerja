@@ -38,11 +38,11 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#navbar-articles" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+            <a class="nav-link" href="#navbar-rooms" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
               <i class="ni ni-ruler-pencil"></i>
               <span class="nav-link-text">Ruangan </span>
             </a>
-            <div class="collapse" id="navbar-articles">
+            <div class="collapse" id="navbar-rooms">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
                   <a href="{{ url('admin/rooms') }}" class="nav-link"><i class="fa fa-rss"></i> Semua Ruangan</a>
@@ -54,11 +54,11 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#navbar-tags" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+            <a class="nav-link" href="#navbar-types" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
               <i class="ni ni-tag"></i>
               <span class="nav-link-text">Tipe Ruangan</span>
             </a>
-            <div class="collapse" id="navbar-tags">
+            <div class="collapse" id="navbar-types">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
                   <a href="{{ url('admin/types') }}" class="nav-link"><i class="fa fa-tags"></i> Tipe</a>
@@ -79,11 +79,11 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#navbar-organizations" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+            <a class="nav-link" href="#navbar-facilities" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
               <i class="ni ni-world-2"></i>
               <span class="nav-link-text">Fasilitas</span>
             </a>
-            <div class="collapse" id="navbar-organizations">
+            <div class="collapse" id="navbar-facilities">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
                   <a href="{{ url('admin/facilities') }}" class="nav-link"><i class="fa fa-building"></i> Semua Fasilitas</a>
@@ -104,11 +104,11 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#navbar-staff" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+            <a class="nav-link" href="#navbar-customers" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
               <i class="ni ni-single-02"></i>
               <span class="nav-link-text">Customer</span>
             </a>
-            <div class="collapse" id="navbar-staff">
+            <div class="collapse" id="navbar-customers">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
                   <a href="{{ url('admin/customers') }}" class="nav-link"><i class="fa fa-users"></i> Semua Customer</a>
@@ -129,11 +129,11 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#navbar-pages" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+            <a class="nav-link" href="#navbar-orders" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
               <i class="ni ni-single-copy-04"></i>
               <span class="nav-link-text">Order </span>
             </a>
-            <div class="collapse" id="navbar-pages">
+            <div class="collapse" id="navbar-orders">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
                   <a href="{{ url('admin/orders') }}" class="nav-link"><i class="fa fa-rss"></i> Semua Orderan</a>
@@ -154,23 +154,23 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="#navbar-megazines" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
+            <a class="nav-link" href="#navbar-payments" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="navbar-forms">
               <i class="ni ni-single-copy-04"></i>
               <span class="nav-link-text">Pembayaran </span>
             </a>
-            <div class="collapse" id="navbar-megazines">
+            <div class="collapse" id="navbar-payments">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                  <a href="{{ url('admin/megazines') }}" class="nav-link"><i class="fa fa-rss"></i> Semua Pembayaran</a>
+                  <a href="{{ url('admin/payments') }}" class="nav-link"><i class="fa fa-rss"></i> Semua Pembayaran</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/megazines/publish') }}" class="nav-link"><i class="fa fa-check"></i> Pembayaran Lunas</a>
+                  <a href="{{ url('admin/payments/publish') }}" class="nav-link"><i class="fa fa-check"></i> Pembayaran Lunas</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/megazines/pending') }}" class="nav-link"><i class="fa fa-clock"></i> Pembayaran Tertunda</a>
+                  <a href="{{ url('admin/payments/pending') }}" class="nav-link"><i class="fa fa-clock"></i> Pembayaran Tertunda</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/megazines/trash') }}" class="nav-link"><i class="fa fa-trash"></i> Pembayaran Delete</a>
+                  <a href="{{ url('admin/payments/trash') }}" class="nav-link"><i class="fa fa-trash"></i> Pembayaran Delete</a>
                 </li>
               </ul>
             </div>
