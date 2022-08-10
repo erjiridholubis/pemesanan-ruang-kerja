@@ -43,7 +43,7 @@ class FacilityController extends Controller
 
   public function store(Request $req) {
     $this->validate($req,[
-      'name' => 'required|min:4|max:255',
+      'name' => 'required|min:2|max:255',
     ]);
 
     $data = new Facility();
@@ -57,7 +57,7 @@ class FacilityController extends Controller
 
 public function update(Request $req, $id) {
     $this->validate($req,[
-        'name' => 'required|min:4|max:255',
+        'name' => 'required|min:2|max:255',
     ]);
 
     $data = Facility::find($id);

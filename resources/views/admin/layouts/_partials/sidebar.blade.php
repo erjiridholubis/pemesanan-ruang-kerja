@@ -164,10 +164,13 @@
                   <a href="{{ url('admin/payments') }}" class="nav-link"><i class="fa fa-rss"></i> Semua Pembayaran</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/payments/publish') }}" class="nav-link"><i class="fa fa-check"></i> Pembayaran Lunas</a>
+                  <a href="{{ url('admin/payments/paid') }}" class="nav-link"><i class="fa fa-check"></i> Pembayaran Lunas</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ url('admin/payments/pending') }}" class="nav-link"><i class="fa fa-clock"></i> Pembayaran Tertunda</a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ url('admin/payments/cancelled') }}" class="nav-link"><i class="fa fa-close"></i> Pembayaran Tertunda</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ url('admin/payments/trash') }}" class="nav-link"><i class="fa fa-trash"></i> Pembayaran Delete</a>

@@ -11,7 +11,7 @@ use App\Payment;
 use App\Order;
 use App\User;
 
-class Paymentontroller extends Controller
+class PaymentController extends Controller
 {
     public function __construct() {
       $this->middleware('token');

@@ -117,6 +117,9 @@ Route::group(['prefix' => 'admin'], function () {
 
   Route::group(['prefix' => 'payments'], function () {
       Route::get('/', 'Admin\PaymentController@index')->name('admin.payment');
+      Route::get('/paid', 'Admin\PaymentController@paid')->name('admin.payment.paid');
+      Route::get('/pending', 'Admin\PaymentController@pending')->name('admin.payment.pending');
+      Route::get('/cancelled', 'Admin\PaymentController@cancel')->name('admin.payment.cancel');
       Route::get('/trash', 'Admin\PaymentController@trash')->name('admin.payment.trash');
       Route::get('/restore', 'Admin\PaymentController@restore')->name('admin.payment.restore');
     
