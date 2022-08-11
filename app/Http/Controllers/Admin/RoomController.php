@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use Session;
 use Str;
@@ -36,6 +37,22 @@ class RoomController extends Controller
     ]);
   }
 
+  public function jsonTags($id) {
+    
+      $data = DB::table('facility_room')
+      ->select('facility_room.facility_id')
+      ->whereIn('facility_room.room_id', function($query) use ($id){
+        $query->select('id')
+        ->from('rooms')
+        ->where("rooms.id","=",$id);
+      })
+      ->groupBy('facility_room.facility_id')
+      ->get();
+      
+      return $data;
+      
+    }
+
   public function trash() {
     $data = Room::with('type')->onlyTrashed()->get();
     $type = Type::all();
@@ -57,6 +74,7 @@ class RoomController extends Controller
       'name' => 'required|min:4|max:255',
       'image' => 'required|file|image|mimes:jpeg,png,jpg',
       'type' => 'required',
+      "facilities" => 'required',
     ]);
 
     $image = $req->file('image');
@@ -71,6 +89,8 @@ class RoomController extends Controller
     $data->image = $newname;
     $data->save();
 
+    $data->Facility()->sync($req->facilities);
+    
     $image->move($dir,$newname);
 
     alert()->success('Data berhasil di tambah');
@@ -86,7 +106,7 @@ class RoomController extends Controller
     ]);
 
     
-    $data = Post::find($id);
+    $data = Room::find($id);
 
     $img_name = "room-".$req->type;
     $image = $req->file('image');
@@ -107,6 +127,8 @@ class RoomController extends Controller
     }
     $data->image = $newname;
     $data->save();
+
+    $data->Facility()->sync($req->facilities);
 
     alert()->success('Data berhasil di update');
     return redirect()->back();

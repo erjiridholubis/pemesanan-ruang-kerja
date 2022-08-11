@@ -3,7 +3,8 @@
 @push('css')
   <!-- Page plugins -->
   <link rel="stylesheet" href="/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="{{ asset('/bs-taginput/tagsinput.css')}}">
+  <link rel="stylesheet" href="{{ asset('/bs-taginput/tagsinput.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 @endpush
 
 @push('btn-control')
@@ -52,7 +53,7 @@
                   <td>{{ $value->type->name }}</td>
                   <td>
                     @foreach ($value->facility as $key => $facility)
-                      <p class="badge badge-pill badge-primary">{{ $facility->name }} ({{ $facility->count() }})</p>
+                      <p class="badge badge-pill badge-primary">{{ $facility->name }}</p>
                       @endforeach
                   </td>
                   <td>{{ $value->type->price }}</td>
@@ -135,9 +136,9 @@
                   
                     <div class="form-group">
                       <label for="">Fasilitas: </label>
-                      <select class="selectpicker form-control" multiple data-live-search="true" name="facilities[]" id="facilities">
+                      <select class="strings facitilies selectpicker form-control" multiple data-live-search="true" name="facilities[]" id="facilities">
                         @foreach ($facilities as $key => $v)
-                          <option value="{{ $v->id }}" class="text-capitalize">{{ $v->name }}</option>
+                          <option value="{{ $v->id }}" id="f{{ $v->id }}" class="text-capitalize">{{ $v->name }}</option>
                         @endforeach
                       </select>          
                     </div>
@@ -149,8 +150,8 @@
 
           </div>
           <div class="modal-footer">
-            <button type="submit" name="publish" class="btn btn-primary">
-              <i class="fa fa-check"></i> publish
+            <button type="submit" name="Submit" class="btn btn-primary">
+              <i class="fa fa-check"></i> Submit
             </button>
             <button type="button" class="btn btn-default" data-dismiss="modal">
               <i class="fa fa-close"></i> Close
@@ -169,29 +170,35 @@
   <script src="/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="{{ asset('/bs-taginput/bt-tagsinput.min.js')}}"></script>
   <script src="{{ asset('/bs-taginput/typehead.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script type="text/javascript">
     $(document).ready(function() {
       $(function(){$(document).on('change',':file',function(){var input=$(this),numFiles=input.get(0).files?input.get(0).files.length:1,label=input.val().replace(/\\/g,'/').replace(/.*\//,'');input.trigger('fileselect',[numFiles,label]);});$(document).ready(function(){$(':file').on('fileselect',function(event,numFiles,label){var input=$(this).parents('.input-group-prepend').find(':text'),log=numFiles>1?numFiles+' files selected':label;if(input.length){input.val(log);}else{if(log)alert(log);}});});});
 
       $('#btn-tambah').on('click', function() {
-        $('#form-room').attr('action','{{ route('admin.payment.store') }}')
+        $('#form-room').attr('action','{{ route('admin.room.store') }}')
         $('#method').html('@method('POST')')
         $('#info-update').html('')
         $('#name').html('')
         $('#text-gambar').val('')
+
+        $('.facitilies').selectpicker('deselectAll');
       })
     })
 
       function modalEdit(id) {
         // id = $(this).data('id')
         $.ajax({
-          url: "/api/payment/"+id,
+          url: "/api/room/"+id,
           Type: "GET",
           headers : {
             'token': '{{ Session::get('api_token') }}'
           },
           success: function(res) {
+
+            jsonTags(id)
+
             let obj = res.data
             let url = "{{ route('admin.room.update', ':id') }}";
             url = url.replace(':id', id);
@@ -203,14 +210,38 @@
             $('#tr'+obj.order_id).attr('selected',true)
             $('#s_'+obj.status).attr('selected',true)
             $('#labelDate').html('Tanggal Update :')
-            $('#MPayment').modal('show')
+            $('#MRoom').modal('show')
           }
         })
       }
 
+      function jsonTags(id) {
+        $('#tags').selectpicker();
+        $(".strings").val('');
+        var url = "{{ route('admin.room.json_tags', ':id', 'json_tags') }}";
+        url = url.replace(":id", id);
+
+        $.ajax({
+          url: url,
+          method: "GET",
+          cache: false,
+          headers : {
+            'token': '{{ Session::get('api_token') }}'
+          },
+          success: function(data) {
+            $.each(data, function(i, item) {
+                    $(".strings option[value='" + item.facility_id + "']").prop("selected", true).trigger(
+                            'change');
+                        $(".strings").selectpicker('refresh');
+                });
+          }
+        });
+      }
+
+
+
       function modalDelete(id) {
-        // let id = $(this).data('id')
-        let url = "{{ route(Request::segment('3')==="trash" ? 'admin.payment.delete.permanent':'admin.payment.delete', ':id') }}";
+        let url = "{{ route(Request::segment('3')==="trash" ? 'admin.room.delete.permanent':'admin.room.delete', ':id') }}";
         url = url.replace(':id', id);
         swal({
           title: 'Anda Yakin?',

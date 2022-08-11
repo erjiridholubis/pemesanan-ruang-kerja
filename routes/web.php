@@ -106,10 +106,11 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/', 'Admin\RoomController@index')->name('admin.room');
       Route::get('/trash', 'Admin\RoomController@trash')->name('admin.room.trash');
       Route::get('/restore', 'Admin\RoomController@restore')->name('admin.room.restore');
-    
+      
       Route::get('/{id}/restore', 'Admin\RoomController@restoreRoom')->name('admin.room.restore.id');
       Route::get('/{id}/delete', 'Admin\RoomController@delete')->name('admin.room.delete');
       Route::get('/{id}/delete/permanent', 'Admin\RoomController@deletePermanent')->name('admin.room.delete.permanent');
+      Route::get('/{id}/json_tags', 'Admin\RoomController@jsonTags')->name('admin.room.json_tags');
     
       Route::post('/store', 'Admin\RoomController@store')->name('admin.room.store');
       Route::put('/{id}/update', 'Admin\RoomController@update')->name('admin.room.update');
