@@ -58,7 +58,7 @@
                   <td>{{ $value->payment_date }}</td>
                   <td>
                   <div class=" text-center">
-                    <img src="/uploads/payments/{{ $value->proof }}" alt="orderan-{{ $value->order->id }}" class="img-rounded center-block" style="width:30%;">
+                    <img src="{{ asset("/uploads/payments/".$value->proof) }}" alt="orderan-{{ $value->order->id }}" class="img-rounded center-block" style="width:30%;">
                   </div>
                 </td>
                   <td>

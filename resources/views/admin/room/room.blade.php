@@ -3,6 +3,7 @@
 @push('css')
   <!-- Page plugins -->
   <link rel="stylesheet" href="/assets/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="{{ asset('/bs-taginput/tagsinput.css')}}">
 @endpush
 
 @push('btn-control')
@@ -168,51 +169,24 @@
   <script src="/assets/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="{{ asset('/bs-taginput/bt-tagsinput.min.js')}}"></script>
   <script src="{{ asset('/bs-taginput/typehead.min.js')}}"></script>
-  {{-- <script src="/assets/vendor/tinymce/js/tinymce/tinymce.min.js"></script> --}}
-  <script src="https://cdn.tiny.cloud/1/0gf848yxsaw9w14nleypbdrxzmrjhjoy01oy25afzac4az1f/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script type="text/javascript">
-    tinymce.init({selector:'#mytextarea',plugins : 'autoresize',width: '100%',height: 450,autoresize_min_height: 450,autoresize_max_height: 900,plugins:'media image imagetools lists link advlist table textpattern anchor hr preview wordcount directionality code',imagetools_toolbar:"rotateleft rotateright | flipv fliph | editimage imageoptions",imagetools_cors_hosts:['portalcoding.com','portalcoding.id'],imagetools_proxy:'/proxy.php',toolbar:'fontselect formatselect link unlink blockquote image anchor preview code | alignleft aligncenter alignright alignjustify numlist bullist table ',toolbar_drawer:'sliding',tinycomments_mode:'embedded',tinycomments_author:'Portal Coding',media_live_embeds:true,image_caption:true,force_p_newlines:false,});
-
     $(document).ready(function() {
-        $(function(){$(document).on('change',':file',function(){var input=$(this),numFiles=input.get(0).files?input.get(0).files.length:1,label=input.val().replace(/\\/g,'/').replace(/.*\//,'');input.trigger('fileselect',[numFiles,label]);});$(document).ready(function(){$(':file').on('fileselect',function(event,numFiles,label){var input=$(this).parents('.input-group-prepend').find(':text'),log=numFiles>1?numFiles+' files selected':label;if(input.length){input.val(log);}else{if(log)alert(log);}});});});
-        $('select').selectpicker('deselectAll');
+      $(function(){$(document).on('change',':file',function(){var input=$(this),numFiles=input.get(0).files?input.get(0).files.length:1,label=input.val().replace(/\\/g,'/').replace(/.*\//,'');input.trigger('fileselect',[numFiles,label]);});$(document).ready(function(){$(':file').on('fileselect',function(event,numFiles,label){var input=$(this).parents('.input-group-prepend').find(':text'),log=numFiles>1?numFiles+' files selected':label;if(input.length){input.val(log);}else{if(log)alert(log);}});});});
 
-        $('#btn-tambah').on('click', function() {
-            $('#form-room').attr('action','{{ route('admin.room.store') }}')
-            $('#method').html('@method('POST')')
-            $('#info-update').html('')
-            $('#text-image').val('')
-            $('#name').val('')
-        })
+      $('#btn-tambah').on('click', function() {
+        $('#form-room').attr('action','{{ route('admin.payment.store') }}')
+        $('#method').html('@method('POST')')
+        $('#info-update').html('')
+        $('#name').html('')
+        $('#text-gambar').val('')
+      })
     })
 
-
       function modalEdit(id) {
-        $('#tags').selectpicker();
-        $(".strings").val('');
-        $.ajax({
-            url: "api/room/"+id+"/json_tags"
-            method: "GET",
-            data :{package_id:id},
-            cache:false,
-            headers : {
-              'token': '{{ Session::get('api_token') }}'
-            },
-            success : function(data){
-                var item=data;
-                var val1=item.replace("[","");
-                var val2=val1.replace("]","");
-                var values=val2;
-                $.each(values.split(","), function(i,e){
-                    $(".strings option[value='" + e + "']").prop("selected", true).trigger('change');
-                    $(".strings").selectpicker('refresh');
-                });
-            }
-        });
-        
         // id = $(this).data('id')
         $.ajax({
-          url: "/api/room/"+id,
+          url: "/api/payment/"+id,
           Type: "GET",
           headers : {
             'token': '{{ Session::get('api_token') }}'
@@ -224,17 +198,19 @@
             $('#form-room').attr('action',url)
             $('#method').html('@method('PUT')')
             $('#info-update').html('')
-            $('#txt-image').val(obj.image)
+            $('#txt-gambar').val(obj.proof)
             $('#name').val(obj.name)
-            $('#tr'+obj.type_id).attr('selected',true)
-            $('#MRoom').modal('show')
+            $('#tr'+obj.order_id).attr('selected',true)
+            $('#s_'+obj.status).attr('selected',true)
+            $('#labelDate').html('Tanggal Update :')
+            $('#MPayment').modal('show')
           }
         })
       }
 
       function modalDelete(id) {
         // let id = $(this).data('id')
-        let url = "{{ route(Request::segment('3')==="trash" ? 'admin.room.delete.permanent':'admin.room.delete', ':id') }}";
+        let url = "{{ route(Request::segment('3')==="trash" ? 'admin.payment.delete.permanent':'admin.payment.delete', ':id') }}";
         url = url.replace(':id', id);
         swal({
           title: 'Anda Yakin?',
@@ -249,7 +225,7 @@
         })
       }
 
-      @error('name')
+      @error('payment_date')
         swal({
           title: 'Kesalahan !',
           text: '{{ $message }}',
@@ -258,7 +234,7 @@
           buttons: "Tutup",
         })
       @enderror
-      @error('type')
+      @error('order')
         swal({
           title: 'Kesalahan !',
           text: '{{ $message }}',
@@ -267,7 +243,16 @@
           buttons: "Tutup",
         })
       @enderror
-      @error('image')
+      @error('proof')
+        swal({
+          title: 'Kesalahan !',
+          text: '{{ $message }}',
+          icon: 'error',
+          type: "error",
+          buttons: "Tutup",
+        })
+      @enderror
+      @error('status')
         swal({
           title: 'Kesalahan !',
           text: '{{ $message }}',
