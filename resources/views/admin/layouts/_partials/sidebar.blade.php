@@ -97,6 +97,7 @@
 
         </ul>
 
+        @if (Auth::user()->level->level == "admin")
         <!-- Divider -->
         <hr class="my-3">
         <!-- Heading -->
@@ -121,6 +122,7 @@
           </li>
           
         </ul>
+        @endif
 
         <!-- Divider -->
         <hr class="my-3">
@@ -167,10 +169,7 @@
                   <a href="{{ url('admin/payments/paid') }}" class="nav-link"><i class="fa fa-check"></i> Pembayaran Lunas</a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ url('admin/payments/pending') }}" class="nav-link"><i class="fa fa-clock"></i> Pembayaran Tertunda</a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ url('admin/payments/cancelled') }}" class="nav-link"><i class="fa fa-close"></i> Pembayaran Tertunda</a>
+                  <a href="{{ url('admin/payments/cancelled') }}" class="nav-link"><i class="fa fa-clock"></i> Pembayaran Tertunda</a>
                 </li>
                 <li class="nav-item">
                   <a href="{{ url('admin/payments/trash') }}" class="nav-link"><i class="fa fa-trash"></i> Pembayaran Delete</a>
@@ -179,8 +178,8 @@
             </div>
           </li>
 
+       @if (Auth::user()->level->level == "admin")
         </ul>
-
         <!-- Divider -->
         <hr class="my-3">
         <!-- Heading -->
@@ -193,6 +192,7 @@
           </li>
           
         </ul>
+        @endif
 
       </div>
     </div>
